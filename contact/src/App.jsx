@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Search from './components/Search'
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs  } from "firebase/firestore"
 import { database } from './config/firebase'
 import Contacts from './components/Contacts'
 import Modal from './components/Modal'

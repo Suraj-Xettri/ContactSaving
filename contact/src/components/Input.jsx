@@ -22,9 +22,9 @@ const Input = () => {
                 Email:""
             }}
 
-            onSubmit={(values) => {
+            onSubmit={(values, { resetForm }) => {
                 addContact(values)
-                console.log(values)
+                resetForm()
             }}
         >
                 <Form>
