@@ -1,11 +1,13 @@
 import './App.css'
-
+import Navbar from './components/Navbar'
+import Search from './components/Search'
 function App() {
 
   return (
-    <>
-      <h1 className='flex bg-red-100'>s</h1>
-    </>
+    <div className='max-w-[400px] mx-auto'>
+      <Navbar/>
+      <Search/>
+    </div>
   )
 }
 
