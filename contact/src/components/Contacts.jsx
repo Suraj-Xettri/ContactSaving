@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { deleteDoc, doc } from 'firebase/firestore';
 import { database } from '../config/firebase';
 import useDisclouse from '../Hooks/useDisclouse';
+import { toast } from 'react-toastify';
 
 const Contacts = ({contact}) => {
   const { isOpen, onClose, onOpen } = useDisclouse();
@@ -13,8 +14,10 @@ const Contacts = ({contact}) => {
      async (id) => {
         try {
             await deleteDoc(doc(database, "contact",id))
+            toast.success("Deleted successfully")
         } catch (error) {
             console.log(error)
+            toast.error("Contat not deleted")
         }
     }
   return (

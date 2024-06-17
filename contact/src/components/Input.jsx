@@ -2,15 +2,19 @@ import React from 'react'
 import {Field, Form, Formik} from "formik"
 import { database } from '../config/firebase'
 import { addDoc, collection } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
 const Input = ({ onClose }) => {
     const addContact = async (contact) => {
         try {
             const contactRef = collection(database, "contact")
             await addDoc(contactRef, contact)
+            toast.success("Contact added successfully");
             onClose()
         } catch (error) {
            console.log(error)
+           toast.error("Contact not added");
+
         }
     }
   return (

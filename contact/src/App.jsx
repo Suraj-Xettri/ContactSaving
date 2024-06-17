@@ -8,6 +8,9 @@ import Contacts from './components/Contacts'
 import Modal from './components/Modal'
 import Input from './components/Input'
 import useDisclouse from './Hooks/useDisclouse'
+
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [contact, setContact] = useState([])
 
@@ -34,9 +37,28 @@ function App() {
     }
     getContacts()
   }, []);
+
+  const filterContacts = (e)  => {
+    const value = e.target.value
+
+    const contactCollection = collection(database, "contact")
+
+        onSnapshot(contactCollection, (snapshot) => {
+          const contactList = snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data()
+            } 
+        })
+
+         const filterContacts = contactList.filter(contact => contact.name.toLo)
+          setContact(contactList)
+          return contactList
+        })
+  }
   
   return (
-    <div>
+    <>
 
       <div className='max-w-[400px] mx-auto p-4 relative'>
         <Navbar />
@@ -52,7 +74,13 @@ function App() {
       <Modal isOpen={isOpen} onClose={onClose}> 
         <Input onClose={onClose} />
       </Modal>
-    </div>
+
+      <ToastContainer 
+      position='bottom-center' 
+      autoClose={2000} 
+      transition={Bounce}
+      />
+    </>
     
   )
 }
