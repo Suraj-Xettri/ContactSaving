@@ -2,24 +2,16 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Search from './components/Search'
-import { collection, getDocs  } from "firebase/firestore"
+import { collection, getDocs } from "firebase/firestore"
 import { database } from './config/firebase'
 import Contacts from './components/Contacts'
 import Modal from './components/Modal'
 import Input from './components/Input'
+import useDisclouse from './Hooks/useDisclouse'
 function App() {
   const [contact, setContact] = useState([])
 
-  const[isOpen, setIsOPen] = useState(false)
-
-  const onOpen = () => {
-    setIsOPen(true)
-  }
-
-  const onClose = () => {
-    setIsOPen(false)
-  }
-
+  const { isOpen, onClose, onOpen } = useDisclouse();
 
   useEffect(() => {
     const getContacts = async () => {
@@ -41,7 +33,8 @@ function App() {
   }, []);
   
   return (
-    <>
+    <div>
+
       <div className='max-w-[400px] mx-auto p-4 relative'>
         <Navbar />
         <Search onOpen = {onOpen}/>
@@ -55,10 +48,10 @@ function App() {
 
       <Modal isOpen={isOpen} onClose = {onClose}> 
         
-        <Input/>
+        <Input onClose = {onClose}/>
         
       </Modal>
-    </>
+    </div>
     
   )
 }

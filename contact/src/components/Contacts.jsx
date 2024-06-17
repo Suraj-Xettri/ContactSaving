@@ -4,8 +4,11 @@ import { MdEditLocationAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { deleteDoc, doc } from 'firebase/firestore';
 import { database } from '../config/firebase';
+import useDisclouse from '../Hooks/useDisclouse';
 
 const Contacts = ({contact}) => {
+  const { isOpen, onClose, onOpen } = useDisclouse();
+
     const deletContact =
      async (id) => {
         try {
@@ -13,7 +16,6 @@ const Contacts = ({contact}) => {
         } catch (error) {
             console.log(error)
         }
-    
     }
   return (
     <div key={contact.id} className='bg-orange-200 flex p-2 items-center justify-between rounded-md'>
@@ -27,7 +29,6 @@ const Contacts = ({contact}) => {
     </div>
     
     <div className='flex text-3xl'>
-      <MdEditLocationAlt className='cursor-pointer'/>
       <MdDelete onClick={() => deletContact(contact.id)} className=' text-red-600 cursor-pointer'/>
     </div>
   </div>

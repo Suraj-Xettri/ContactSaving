@@ -9,7 +9,7 @@ const Search = ({onOpen}) => {
             <input className='h-11 flex-grow pl-11 border bg-transparent rounded-md border-black' type="text" placeholder='Search Contact'/>
         </div>
         <div>
-            <IoIosAddCircleOutline onClick={onOpen} className='text-5xl text-white bg-gray-700  rounded-full'/>
+            <IoIosAddCircleOutline onClick={onOpen} className='text-5xl text-white bg-gray-700  rounded-full cursor-pointer'/>
         </div>
         </div>
   )
