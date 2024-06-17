@@ -1,15 +1,14 @@
 import React from 'react'
 import {Field, Form, Formik} from "formik"
-import Modal from './Modal'
 import { database } from '../config/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 
-const Input = ({onClose}) => {
+const Input = ({ onClose }) => {
     const addContact = async (contact) => {
         try {
             const contactRef = collection(database, "contact")
             await addDoc(contactRef, contact)
-            onclose
+            onClose()
         } catch (error) {
            console.log(error)
         }
@@ -27,7 +26,7 @@ const Input = ({onClose}) => {
             onSubmit={(values, { resetForm }) => {
                 addContact(values)
                 resetForm()
-                onClose
+                onClose()
             }}
         >
                 <Form>

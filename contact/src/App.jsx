@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Search from './components/Search'
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs, onSnapshot } from "firebase/firestore"
 import { database } from './config/firebase'
 import Contacts from './components/Contacts'
 import Modal from './components/Modal'
@@ -17,14 +17,17 @@ function App() {
     const getContacts = async () => {
       try {
         const contactCollection = collection(database, "contact")
-        const contactSnapshot = await getDocs(contactCollection)
-        const contactList = contactSnapshot.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data()
-          } 
+
+        onSnapshot(contactCollection, (snapshot) => {
+          const contactList = snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data()
+            } 
         })
-        setContact(contactList)
+          setContact(contactList)
+          return contactList
+        })
       } catch (error) {
         console.log("Error fetching contacts: ", error)
       }
@@ -46,10 +49,8 @@ function App() {
         
       </div>
 
-      <Modal isOpen={isOpen} onClose = {onClose}> 
-        
-        <Input onClose = {onClose}/>
-        
+      <Modal isOpen={isOpen} onClose={onClose}> 
+        <Input onClose={onClose} />
       </Modal>
     </div>
     
