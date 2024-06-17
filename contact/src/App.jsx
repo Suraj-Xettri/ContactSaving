@@ -13,7 +13,6 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [contact, setContact] = useState([])
-
   const { isOpen, onClose, onOpen } = useDisclouse();
 
   useEffect(() => {
@@ -39,7 +38,7 @@ function App() {
   }, []);
 
   const filterContacts = (e)  => {
-    const value = e.target.value
+    const value = e.target.value.toLowerCase()
 
     const contactCollection = collection(database, "contact")
 
@@ -51,9 +50,9 @@ function App() {
             } 
         })
 
-         const filterContacts = contactList.filter(contact => contact.name.toLo)
-          setContact(contactList)
-          return contactList
+         const filterContacts = contactList.filter((contact) => contact.Name.toLowerCase().includes(value))
+          setContact(filterContacts)
+          return filterContacts
         })
   }
   
@@ -62,7 +61,7 @@ function App() {
 
       <div className='max-w-[400px] mx-auto p-4 relative'>
         <Navbar />
-        <Search onOpen = {onOpen}/>
+        <Search onOpen = {onOpen} filterContact={filterContacts}/>
         <div className='mt-4 flex flex-col gap-2'>
           {contact.map(contact => (
             <Contacts key = {contact.id} contact = {contact}/>
@@ -77,7 +76,7 @@ function App() {
 
       <ToastContainer 
       position='bottom-center' 
-      autoClose={2000} 
+      autoClose={1000} 
       transition={Bounce}
       />
     </>
